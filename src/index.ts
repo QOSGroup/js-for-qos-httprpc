@@ -1,3 +1,3 @@
-import QOSRpc from './core/rpc'
+import QOSRpc from './core/QOSRpc'
 
 export default QOSRpc

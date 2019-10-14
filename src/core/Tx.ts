@@ -1,4 +1,4 @@
-import QOSRpc from './rpc';
+import QOSRpc from './QOSRpc';
 
 class Tx {
   public rpc: QOSRpc;
