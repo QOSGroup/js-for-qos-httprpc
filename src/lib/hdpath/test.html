@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <title>eee</title>
+    <script type="application/javascript" src="./hdpath.js" ></script>
+</head>
+
+<body>
+
+</body>
+
+
+<script type="application/javascript">
+
+    let seed = [241,96,71,114,44,235,135,242,13,155,91,7,95,96,100,44,131,238,61,190,214,154,109,120,79,206,76,243,20,147,69,169,46,26,250,202,178,234,172,247,21,125,192,68,22,94,16,59,157,56,150,159,220,214,44,62,18,51,78,237,171,3,111,168]
+
+    let [secret, chaincode] = hdpath.ComputeMastersFromSeed(seed)
+
+    console.log(secret)
+    console.log(chaincode)
+
+    let [privateSeed, err] = hdpath.DerivePrivateKeyForPath(secret, chaincode, "44'/389'/0'/0/0")
+
+    if (err != null) {
+        console.log(err)
+    }
+
+    console.log(privateSeed)
+
+</script>
+
+</html>

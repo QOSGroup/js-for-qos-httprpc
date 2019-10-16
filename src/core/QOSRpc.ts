@@ -1,4 +1,3 @@
-import nacl from 'tweetnacl';
 import Account from './Account';
 import SecretKey from './SecretKey';
 import Tx from './Tx';
@@ -38,7 +37,8 @@ class QOSRpc {
    */
   public recoveryAccountByPrivateKey(privateKey) {
     const privateKeyBuffer = decodeBase64(privateKey);
-    const keyPair = nacl.sign.keyPair.fromSecretKey(privateKeyBuffer);
+    // const keyPair = nacl.sign.keyPair.fromSecretKey(privateKeyBuffer);
+    const keyPair = this.key.recoveryKeyPair(privateKeyBuffer)
     return new Account(this, keyPair);
   }
 
