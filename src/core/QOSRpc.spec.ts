@@ -1,6 +1,7 @@
 import test from 'ava';
 // import nacl from 'tweetnacl';
 import QOSRpc from './QOSRpc';
+import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
 import logger from './utils/log';
 
@@ -12,6 +13,12 @@ test('qosrpc test', async t => {
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
   const account = rpc.newAccount('fury flavor subway start spare hospital tag chief word start pencil borrow town mandate detect pencil cook bridge right scout remain this differ leader')
   // logger.debug(account.address)
+  logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
+  logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
+  logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))
+  logger.debug('keyPair.secretKey encodeBase64', encodeBase64(account.keypair.privateKey))
+
+  logger.debug('keyPair.bech32pubkey', account.keypair.bech32pubkey)
   // logger.debug(account.pubKey)
   try {
     // const res = await rpc.tx.sendTx()
@@ -22,7 +29,7 @@ test('qosrpc test', async t => {
     // logger.debug(sig.join(','))
     // logger.debug(encodeBase64(sig))
   } catch (error) {
-    logger.error(error)
+    // logger.error(error)
   }
 
   t.is(rpc.config.baseUrl, 'http://192.168.1.37:9876')

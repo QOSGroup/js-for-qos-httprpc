@@ -1,11 +1,10 @@
+
 import bech32 from 'bech32';
 import { generateMnemonic, mnemonicToSeedSync } from 'bip39';
-// import { ec as EC } from 'elliptic'
-// import nacl from 'tweetnacl';
-import { buf2hex, encodeBase64, getHash256, stringToBuffer } from './utils';
-import logger from './utils/log';
-require('hdpath')
 import ed25519 from 'ed25519';
+require('keys');
+import { buf2hex, getHash256, stringToBuffer } from './utils';
+import logger from './utils/log';
 
 export default class SecretKey {
   public generateMnemonic() {
@@ -16,39 +15,44 @@ export default class SecretKey {
 
   public genarateKeyPair(mnemonic: string) {
     const seed = mnemonicToSeedSync(mnemonic);
+    // 从助记词中获取私钥种子
+    const [privateSeed, err] = (global as any).keys.DeriveQOSPrivateKeySeed(seed);
 
-    logger.debug('-------======--------====------')
-    const [secret, chaincode] = (global as any).hdpath.ComputeMastersFromSeed(seed)
-
-    const [privateSeed, err] = (global as any).hdpath.DerivePrivateKeyForPath(secret, chaincode, "44'/389'/0'/0/0")
+    // const [privateSeed, err] = (global as any).hdpath.DerivePrivateKeyForPath(secret, chaincode, "44'/389'/0'/0/0")
 
     if (err != null) {
       // tslint:disable-next-line: no-console
       console.log(err)
     }
+    logger.debug('privateSeed', privateSeed.join(','))
     const secret256 = getHash256(privateSeed);
-    logger.debug('secret256:' + (new Buffer(secret256)).length, new Buffer(secret256))
+    logger.debug('secret256', secret256.join(','))
 
     const keyPair = ed25519.MakeKeypair(new Buffer(secret256));
     // const keyPair = nacl.sign.keyPair.fromSeed(new Uint8Array(secret256));
-    logger.debug('keyPair.publicKey', encodeBase64(keyPair.publicKey))
-    logger.debug('keyPair.secretKey', encodeBase64(keyPair.privateKey))
-    keyPair.secretKey = keyPair.privateKey
 
-    logger.debug('rprivateKey.substring(64,128)', encodeBase64(this.recoveryKeyPair(keyPair.privateKey).publicKey))
-    // this.test(mnemonic)
+    keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)
     return keyPair
   }
 
+  public getBech32PubKey(publicKey) {
+    const [bech32pubkey, err2] = (global as any).keys.Bech32ifyQOSAccPubkey(publicKey);
+    if (err2 != null) {
+      throw err2;
+    }
+    return bech32pubkey
+  }
+
   public recoveryKeyPair(privateKey: Uint8Array) {
+    const publicKey = stringToBuffer(buf2hex(privateKey).substring(64, 128), 'hex')
     return {
-      publicKey: stringToBuffer(buf2hex(privateKey).substring(64, 128), 'hex'),
-      privateKey
+      publicKey,
+      privateKey,
+      bech32pubkey: this.getBech32PubKey(publicKey)
     }
   }
 
   public test() {
-    logger.debug('-----1111-------11-----')
 
     // return keyPair
   }
