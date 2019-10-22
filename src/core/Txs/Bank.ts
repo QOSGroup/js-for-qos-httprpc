@@ -24,8 +24,6 @@ export default class Bank extends Tx {
 
   @after(componentSignData, sendTx)
   public async execTransferTx(address: string, data: ITransferInput) {
-    // logger.debug('execTransferTx: ', (`bank/accounts​/${address}/transfers`))
-    // logger.debug(data)
     const res = await this.rpc.request({
       method: 'POST',
       url: `bank/accounts/${address}/transfers`,
