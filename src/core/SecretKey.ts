@@ -4,7 +4,6 @@ import { generateMnemonic, mnemonicToSeedSync } from 'bip39';
 import ed25519 from 'ed25519';
 require('keys');
 import { buf2hex, getHash256, stringToBuffer } from './utils';
-import logger from './utils/log';
 
 export default class SecretKey {
   public generateMnemonic() {
@@ -24,9 +23,7 @@ export default class SecretKey {
       // tslint:disable-next-line: no-console
       console.log(err)
     }
-    logger.debug('privateSeed', privateSeed.join(','))
     const secret256 = getHash256(privateSeed);
-    logger.debug('secret256', secret256.join(','))
 
     const keyPair = ed25519.MakeKeypair(new Buffer(secret256));
     // const keyPair = nacl.sign.keyPair.fromSeed(new Uint8Array(secret256));
