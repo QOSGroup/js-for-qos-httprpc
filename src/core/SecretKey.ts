@@ -1,7 +1,8 @@
 
 import bech32 from 'bech32';
 import { generateMnemonic, mnemonicToSeedSync } from 'bip39';
-import ed25519 from 'ed25519';
+// import ed25519 from 'ed25519';
+import ed25519 from 'supercop.js'
 require('keys');
 import { buf2hex, getHash256, stringToBuffer } from './utils';
 
@@ -25,7 +26,9 @@ export default class SecretKey {
     }
     const secret256 = getHash256(privateSeed);
 
-    const keyPair = ed25519.MakeKeypair(new Buffer(secret256));
+    // const keyPair = ed25519.MakeKeypair(new Buffer(secret256));
+    const keyPair = ed25519.createKeyPair(new Buffer(secret256));
+
     // const keyPair = nacl.sign.keyPair.fromSeed(new Uint8Array(secret256));
 
     keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)

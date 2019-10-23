@@ -1,11 +1,14 @@
-import ed25519 from 'ed25519';
+// import ed25519 from 'ed25519';
+import ed25519 from 'supercop.js'
 // import nacl from 'tweetnacl';
 import Account from '../Account';
 import { decodeBase64, encodeBase64 } from '../utils';
 
 export function sign(account: Account, data: any) {
   // const sig = nacl.sign.detached(decodeBase64(data), account.keypair.privateKey)
-  const sig = ed25519.Sign(decodeBase64(data), account.keypair.privateKey);
+  // const sig = ed25519.Sign(decodeBase64(data), account.keypair.privateKey);
+  const sig = ed25519.sign(decodeBase64(data), account.keypair.publicKey, account.keypair.privateKey);
+
   // logger.debug('sig', encodeBase64(sig))
 
   return encodeBase64(sig)
