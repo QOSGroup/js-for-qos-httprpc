@@ -31,8 +31,12 @@ export default class SecretKey {
 
     // const keyPair = nacl.sign.keyPair.fromSeed(new Uint8Array(secret256));
 
-    keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)
-    return keyPair
+    // keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)
+    return {
+      publicKey: keyPair.publicKey,
+      privateKey: keyPair.secretKey,
+      bech32pubkey: this.getBech32PubKey(keyPair.publicKey)
+    }
   }
 
   public getBech32PubKey(publicKey) {
