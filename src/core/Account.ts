@@ -41,6 +41,8 @@ class Account {
     //     qscs: data.qscs
     //   });
       const res = await tx.execTransferTx(toAddress, data);
+      // tslint:disable-next-line: no-console
+      console.log(res);
     return res;
   }
 

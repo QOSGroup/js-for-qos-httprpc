@@ -24,7 +24,7 @@ export default class Bank extends Tx {
   }
 
   // @after(componentSignData, sendTx)
-  @after(componentSignData)
+  @after(componentSignData, sendTx)
   public async execTransferTx(address: string, data: ITransferInput) {
     // const req = this.rpc.request
     // logger.debug('rpc request', req)
@@ -32,7 +32,7 @@ export default class Bank extends Tx {
       `/bank/accounts/${address}/transfers`,
       data
     );
-    logger.debug('execTransfer result', res)
+    console.log('execTransfer result', res)
     return res
   }
 
@@ -41,7 +41,7 @@ export default class Bank extends Tx {
     // const res = await this.rpc.request({
     //   method: 'POST',
     const res = await this.rpc.post(
-      '/bank/accounts/check',
+      '/bank/accounts/checks',
       data
     )
     return res
