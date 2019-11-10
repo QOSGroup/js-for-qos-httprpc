@@ -1,7 +1,9 @@
 import QOSRpc from './QOSRpc';
-import Bank from './Txs/Bank';
+import Approve, { IApproveInput } from './Txs/Approve';
+import Bank, { ITransferInput } from './Txs/Bank';
 import { IKeyPair } from './types/common';
 import { encodeBase64 } from './utils';
+// import { ITransferInput } from './'
 
 class Account {
   public readonly rpc: QOSRpc;
@@ -26,16 +28,99 @@ class Account {
     }
   }
 
-  public async sendTransferTx() {
+  public async sendTransferTx(toAddress: string, data: ITransferInput) {
     const tx = new Bank(this.rpc, this);
-    const res = await tx.execTransferTx(
-      'qosacc12z5jn6c3qu3j2zy80ydwjm8pjwu3h8tqk3cwya',
+    // const res = await tx.execTransferTx(
+    //   toAddress,
+    //   {
+    //     base: {
+    //       from: data.base.from,
+    //       max_gas: data.base.max_gas
+    //     },
+    //     qos: data.qos,
+    //     qscs: data.qscs
+    //   });
+      const res = await tx.execTransferTx(toAddress, data);
+    return res;
+  }
+
+  public async sendCheckTx(data: ITransferInput) {
+    const tx = new Bank(this.rpc, this);
+    const res = await tx.execCheckTx(data);
+    return res;
+  }
+
+  public async sendApproveTx(toAddress: string, data: IApproveInput) {
+    const tx = new Approve(this.rpc, this);
+    const res = await tx.execApproveTx(
+      toAddress,
       {
         base: {
-          'from': this.address,
-          max_gas: '200000'
+          from: data.base.from,
+          max_gas: data.base.max_gas
         },
-        qos: '1000'
+        qos: data.qos,
+        qscs:data.qscs
+      });
+    return res;
+  }
+
+  public async sendCancelApproveTx(toAddress: string, data: IApproveInput) {
+    const tx = new Approve(this.rpc, this);
+    const res = await tx.execCancelApproveTx(
+      toAddress,
+      {
+        base: {
+          from: data.base.from,
+          max_gas: data.base.max_gas
+        },
+        qos: data.qos,
+        qscs:data.qscs
+      });
+    return res;
+  }
+
+  public async sendIncreaseApproveTx(toAddress: string, data: IApproveInput) {
+    const tx = new Approve(this.rpc, this);
+    const res = await tx.execIncreaseApproveTx(
+      toAddress,
+      {
+        base: {
+          from: data.base.from,
+          max_gas: data.base.max_gas
+        },
+        qos: data.qos,
+        qscs:data.qscs
+      });
+    return res;
+  }
+
+  public async sendDecreaseApproveTx(toAddress: string, data: IApproveInput) {
+    const tx = new Approve(this.rpc, this);
+    const res = await tx.execDecreaseApproveTx(
+      toAddress,
+      {
+        base: {
+          from: data.base.from,
+          max_gas: data.base.max_gas
+        },
+        qos: data.qos,
+        qscs:data.qscs
+      });
+    return res;
+  }
+
+  public async sendUseApproveTx(toAddress: string, data: IApproveInput) {
+    const tx = new Approve(this.rpc, this);
+    const res = await tx.execUseApproveTx(
+      toAddress,
+      {
+        base: {
+          from: data.base.from,
+          max_gas: data.base.max_gas
+        },
+        qos: data.qos,
+        qscs:data.qscs
       });
     return res;
   }
