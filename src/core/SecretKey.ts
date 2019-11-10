@@ -1,10 +1,7 @@
 
-import bech32 from 'bech32';
-import { generateMnemonic, mnemonicToSeedSync } from 'bip39';
-// import ed25519 from 'ed25519';
-import ed25519 from 'supercop.js'
-require('keys');
-import { buf2hex, getHash256, stringToBuffer } from './utils';
+import { generateMnemonic } from 'bip39';
+require('qosKeys');
+import { buf2hex, stringToBuffer } from './utils';
 
 export default class SecretKey {
   public generateMnemonic() {
@@ -14,33 +11,27 @@ export default class SecretKey {
   }
 
   public genarateKeyPair(mnemonic: string) {
-    const seed = mnemonicToSeedSync(mnemonic);
+    // const seed = mnemonicToSeedSync(mnemonic);
     // 从助记词中获取私钥种子
-    const [privateSeed, err] = (global as any).keys.DeriveQOSPrivateKeySeed(seed);
-
+    const [prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
     // const [privateSeed, err] = (global as any).hdpath.DerivePrivateKeyForPath(secret, chaincode, "44'/389'/0'/0/0")
 
     if (err != null) {
       // tslint:disable-next-line: no-console
       console.log(err)
     }
-    const secret256 = getHash256(privateSeed);
-
-    // const keyPair = ed25519.MakeKeypair(new Buffer(secret256));
-    const keyPair = ed25519.createKeyPair(new Buffer(secret256));
-
-    // const keyPair = nacl.sign.keyPair.fromSeed(new Uint8Array(secret256));
-
+    // const secret256 = getHash256(privateSeed);
+    // const keyPair = ed25519.createKeyPair(new Buffer(secret256));
     // keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)
     return {
-      publicKey: keyPair.publicKey,
-      privateKey: keyPair.secretKey,
-      bech32pubkey: this.getBech32PubKey(keyPair.publicKey)
+      publicKey: pubkeyBz,
+      privateKey: prikeyBz,
+      bech32pubkey: this.getBech32PubKey(pubkeyBz)
     }
   }
 
   public getBech32PubKey(publicKey) {
-    const [bech32pubkey, err2] = (global as any).keys.Bech32ifyQOSAccPubkey(publicKey);
+    const [bech32pubkey, err2] = (global as any).qosKeys.Bech32ifyQOSAccPubKey(publicKey);
     if (err2 != null) {
       throw err2;
     }
@@ -62,9 +53,14 @@ export default class SecretKey {
   }
 
   public getAddress(publicKey: Uint8Array) {
-    const pkAarry = getHash256(publicKey);
-    const nw = bech32.toWords(Buffer.from(pkAarry.slice(0, 20)));
-    const addr = bech32.encode('qosacc', nw);
-    return addr;
+    const [addrBech32, err] = (global as any).qosKeys.Bech32ifyQOSAccAddressFromPubKey(publicKey);
+    if (err != null) {
+      throw err;
+    }
+    return addrBech32
+    // const pkAarry = getHash256(publicKey);
+    // const nw = bech32.toWords(Buffer.from(pkAarry.slice(0, 20)));
+    // const addr = bech32.encode('qosacc', nw);
+    // return addr;
   }
 }

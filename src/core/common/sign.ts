@@ -1,6 +1,6 @@
-// import ed25519 from 'ed25519';
-import ed25519 from 'supercop.js'
+// import ed25519 from 'supercop.js'
 // import nacl from 'tweetnacl';
+require('qosKeys');
 import Account from '../Account';
 import Tx from '../Txs/Tx';
 import { decodeBase64, encodeBase64 } from '../utils';
@@ -9,7 +9,7 @@ import logger from '../utils/log';
 export function sign(account: Account, data: any) {
   // const sig = nacl.sign.detached(decodeBase64(data), account.keypair.privateKey)
   // const sig = ed25519.Sign(decodeBase64(data), account.keypair.privateKey);
-  const sig = ed25519.sign(decodeBase64(data), account.keypair.publicKey, account.keypair.privateKey);
+  const sig = (global as any).qosKeys.Sign(account.keypair.privateKey, decodeBase64(data));
 
   // logger.debug('sig', encodeBase64(sig))
 
