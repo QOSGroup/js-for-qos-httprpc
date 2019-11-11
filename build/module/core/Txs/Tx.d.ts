@@ -7,5 +7,5 @@ export default class Tx {
     sendTx({ tx, mode }: {
         tx: string;
         mode?: 'block' | 'sync' | 'async';
-    }): Promise<import("axios").AxiosResponse<any>>;
+    }): Promise<void | import("axios").AxiosResponse<any>>;
 }

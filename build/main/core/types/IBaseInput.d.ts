@@ -1,4 +1,4 @@
-interface IBase {
+export interface IBase {
     from: string;
     chain_id?: string;
     nonce?: string;
@@ -10,4 +10,3 @@ interface IBase {
 export interface IBaseInput {
     base: IBase;
 }
-export {};

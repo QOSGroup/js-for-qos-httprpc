@@ -1,10 +1,11 @@
 import Account from './Account';
 import SecretKey from './SecretKey';
 import Tx from './Tx';
+import { IBaseInput } from './types/IBaseInput';
 import { decodeBase64 } from './utils';
 import createAxioRequest from './utils/request';
 
-class QOSRpc {
+export class QOSRpc {
 
   public get request() {
     return createAxioRequest(this.config.baseUrl);
@@ -22,10 +23,17 @@ class QOSRpc {
 
   constructor(config: { readonly baseUrl: string; }) {
     this.config = config;
-    this.key = new SecretKey()
+    this.key = new SecretKey();
+  }
+  public post(url:string, data:IBaseInput){
+    return this.request.post(url, data);
   }
 
-  public newAccount(mnemonic: string) {
+  public generateMnemonic() {
+    return this.key.generateMnemonic();
+  }
+
+  public importAccount(mnemonic: string) {
     const keyPair = this.key.genarateKeyPair(mnemonic);
 
     return new Account(this, keyPair, mnemonic);

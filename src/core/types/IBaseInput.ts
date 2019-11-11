@@ -1,4 +1,4 @@
-interface IBase {
+export interface IBase {
   from: string;
   chain_id?: string;
   nonce?: string;

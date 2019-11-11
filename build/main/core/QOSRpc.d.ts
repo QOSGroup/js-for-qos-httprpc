@@ -1,7 +1,8 @@
 import Account from './Account';
 import SecretKey from './SecretKey';
 import Tx from './Tx';
-declare class QOSRpc {
+import { IBaseInput } from './types/IBaseInput';
+export declare class QOSRpc {
     readonly request: import("axios").AxiosInstance;
     readonly tx: Tx;
     config: {
@@ -12,7 +13,9 @@ declare class QOSRpc {
     constructor(config: {
         readonly baseUrl: string;
     });
-    newAccount(mnemonic: string): Account;
+    post(url: string, data: IBaseInput): Promise<import("axios").AxiosResponse<any>>;
+    generateMnemonic(): string;
+    importAccount(mnemonic: string): Account;
     /**
      * 根据私钥恢复账户
      * @param {string} privateKey 私钥
