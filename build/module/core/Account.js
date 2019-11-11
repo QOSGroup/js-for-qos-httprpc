@@ -1,0 +1,74 @@
+import Approve from './Txs/Approve';
+import Bank from './Txs/Bank';
+import Delegation from './Txs/Delegation';
+import { encodeBase64 } from './utils';
+import logger from './utils/log';
+// import { ITransferInput } from './'
+class Account {
+    constructor(controller, keyPair, mnemonic) {
+        // public account: IAccount
+        this.qos = 0;
+        this.rpc = controller;
+        if (keyPair) {
+            this.mnemonic = mnemonic;
+            this.keypair = keyPair;
+            this.address = this.rpc.key.getAddress(keyPair.publicKey);
+            this.pubKey = encodeBase64(keyPair.publicKey);
+            this.privateKey = encodeBase64(keyPair.privateKey);
+            this.bech32pubkey = keyPair.bech32pubkey;
+        }
+    }
+    async sendTransferTx(toAddress, data) {
+        const tx = new Bank(this.rpc, this);
+        const res = await tx.execTransferTx(toAddress, data);
+        logger.debug('transfer result', res);
+        return res;
+    }
+    async sendCreateDelegateTx(validatorAddress, data) {
+        const tx = new Delegation(this.rpc, this);
+        const res = await tx.execCreateDelegationTx(validatorAddress, data);
+        return res;
+    }
+    async sendModifyDelegationTx(validatorAddress, data) {
+        const tx = new Delegation(this.rpc, this);
+        const res = await tx.execModifyDelegationTx(validatorAddress, data);
+        return res;
+    }
+    async sendUnbondDelegationTx(validatorAddress, data) {
+        const tx = new Delegation(this.rpc, this);
+        const res = await tx.execUnbondDelegationTx(validatorAddress, data);
+        return res;
+    }
+    async sendCheckTx(data) {
+        const tx = new Bank(this.rpc, this);
+        const res = await tx.execCheckTx(data);
+        return res;
+    }
+    async sendApproveTx(toAddress, data) {
+        const tx = new Approve(this.rpc, this);
+        const res = await tx.execApproveTx(toAddress, data);
+        return res;
+    }
+    async sendCancelApproveTx(toAddress, data) {
+        const tx = new Approve(this.rpc, this);
+        const res = await tx.execCancelApproveTx(toAddress, data);
+        return res;
+    }
+    async sendIncreaseApproveTx(toAddress, data) {
+        const tx = new Approve(this.rpc, this);
+        const res = await tx.execIncreaseApproveTx(toAddress, data);
+        return res;
+    }
+    async sendDecreaseApproveTx(toAddress, data) {
+        const tx = new Approve(this.rpc, this);
+        const res = await tx.execDecreaseApproveTx(toAddress, data);
+        return res;
+    }
+    async sendUseApproveTx(toAddress, data) {
+        const tx = new Approve(this.rpc, this);
+        const res = await tx.execUseApproveTx(toAddress, data);
+        return res;
+    }
+}
+export default Account;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWNjb3VudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb3JlL0FjY291bnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxPQUEwQixNQUFNLGVBQWUsQ0FBQztBQUN2RCxPQUFPLElBQXdCLE1BQU0sWUFBWSxDQUFDO0FBQ2xELE9BQU8sVUFBc0YsTUFBTSxrQkFBa0IsQ0FBQztBQUV0SCxPQUFPLEVBQUUsWUFBWSxFQUFFLE1BQU0sU0FBUyxDQUFDO0FBQ3ZDLE9BQU8sTUFBTSxNQUFNLGFBQWEsQ0FBQztBQUNqQyxzQ0FBc0M7QUFFdEMsTUFBTSxPQUFPO0lBV1gsWUFBWSxVQUFrQixFQUFFLE9BQWtCLEVBQUUsUUFBaUI7UUFUckUsMkJBQTJCO1FBQ3BCLFFBQUcsR0FBVyxDQUFDLENBQUM7UUFTckIsSUFBSSxDQUFDLEdBQUcsR0FBRyxVQUFVLENBQUM7UUFDdEIsSUFBSSxPQUFPLEVBQUU7WUFDWCxJQUFJLENBQUMsUUFBUSxHQUFHLFFBQVEsQ0FBQztZQUN6QixJQUFJLENBQUMsT0FBTyxHQUFHLE9BQU8sQ0FBQztZQUN2QixJQUFJLENBQUMsT0FBTyxHQUFHLElBQUksQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLFVBQVUsQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLENBQUM7WUFDMUQsSUFBSSxDQUFDLE1BQU0sR0FBRyxZQUFZLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxDQUFDO1lBQzlDLElBQUksQ0FBQyxVQUFVLEdBQUcsWUFBWSxDQUFDLE9BQU8sQ0FBQyxVQUFVLENBQUMsQ0FBQztZQUNuRCxJQUFJLENBQUMsWUFBWSxHQUFHLE9BQU8sQ0FBQyxZQUFZLENBQUM7U0FDMUM7SUFDSCxDQUFDO0lBRU0sS0FBSyxDQUFDLGNBQWMsQ0FBQyxTQUFpQixFQUFFLElBQW9CO1FBQ2pFLE1BQU0sRUFBRSxHQUFHLElBQUksSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLEVBQUUsSUFBSSxDQUFD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
