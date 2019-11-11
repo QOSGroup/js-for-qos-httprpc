@@ -2,7 +2,8 @@ import test from 'ava';
 // import nacl from 'tweetnacl';
 import QOSRpc from './QOSRpc';
 // import { IApproveInput } from './Txs/Approve';
-import { ITransferInput } from './Txs/Bank';
+// import { ITransferInput } from './Txs/Bank';
+import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
 import { IBase } from './types/IBaseInput';
 import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
@@ -16,7 +17,7 @@ test('qosrpc test', async t => {
   // const Mn = rpc.generateMnemonic()
   // logger.debug('Mn', Mn)
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
-  const account = rpc.importAccount('fury flavor subway start spare hospital tag chief word start pencil borrow town mandate detect pencil cook bridge right scout remain this differ leader')
+  const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
   // const account = rpc.importAccount(Mn)
   // logger.debug(account.address)
   logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
@@ -35,16 +36,48 @@ test('qosrpc test', async t => {
         chain_id: 'aquarius-2001',
         max_gas: '200000',
     }
-    const obj: ITransferInput = {
-      qos: '10',
+
+    // const obj: ITransferInput = {
+    //   qos: '1111',
+    //   base: myBase,
+    // }
+    // const res00 = await account.sendTransferTx('qosacc18j9ncemyh0jex3k2yu3s6zh53azfsgxav7t3wq', obj)
+    // logger.debug('Transfer result', res00)
+    
+    // const del: ICreateDelegationInput= {
+    //   amount:  '1111',
+    //   base: myBase,
+    // }
+    // const res01 = await account.sendCreateDelegateTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', del)
+    // // logger.debug('Create Delegation result', res01)
+    // logger.debug('Create Delegation result:', res01.status, ', hash:', res01.data.hash)
+
+    const mod: IModifyDelegationInput= {
+      is_compound:  true,
       base: myBase,
     }
-    const res00 = await account.sendTransferTx('qosacc12z5jn6c3qu3j2zy80ydwjm8pjwu3h8tqk3cwya', obj)
-    logger.debug('Transfer result', res00)
-    
+    const res02 = await account.sendModifyDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', mod)
+    logger.debug('Modify Delegation result', res02)
+    logger.debug('Modify Delegation result:', res02.status, ', hash:', res02.data.hash)
 
-    const res01 = await account.sendCheckTx(obj)
-    logger.debug('check result', res01)
+    const unbond: IUnbondDelegationInput= {
+      unbond_amount:  '1111',
+      base: myBase,
+    }
+    const res03 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond)
+    logger.debug('unbond Delegation result', res03)
+    logger.debug('Unbond Delegation result:', res03.status, ', hash:', res03.data.hash)
+
+    const unbond1: IUnbondDelegationInput= {
+      unbond_all:  true,
+      base: myBase,
+    }
+    const res04 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond1)
+    logger.debug('Unbond all Delegation result', res04)
+    logger.debug('Unbond all Delegation result:', res04.status, ', hash:', res04.data.hash)
+
+    // const res01 = await account.sendCheckTx(obj)
+    // logger.debug('check result', res01)
     
     // const approveObj: IApproveInput = {
     //   qos: '1000',

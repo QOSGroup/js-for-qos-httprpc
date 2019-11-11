@@ -12,11 +12,11 @@ export default class Tx {
 
   public async sendTx({ tx, mode = 'block' }: { tx: string, mode?: 'block' | 'sync' | 'async'}) {
     logger.debug('sendTx:===', JSON.stringify({ tx, mode }))
-    const res = await this.rpc.request({
+    const res = await  this.rpc.request({
       method: 'POST',
       url: '/txs',
       data: { tx, mode }
-    })
+    }).catch(err => console.log(err))
     return res
   }
 }

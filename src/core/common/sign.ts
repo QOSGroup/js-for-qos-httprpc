@@ -28,5 +28,6 @@ export function componentSignData(target: Tx, res: any) {
     value:  target.account.pubKey
   }
   logger.debug('resobj', resObj)
+  logger.debug('itx', resObj.value.itx[0])
   return resObj
 }

@@ -14,10 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const decorator_1 = require("../common/decorator");
 const sign_1 = require("../common/sign");
+const log_1 = __importDefault(require("../utils/log"));
 const Tx_1 = __importDefault(require("./Tx"));
 async function sendTx(target, result) {
     const res = await target.sendTx({ tx: result });
-    // logger.debug(res)
+    log_1.default.debug('res in Bank sendTX ', res);
     return res;
 }
 class Bank extends Tx_1.default {
@@ -25,11 +26,14 @@ class Bank extends Tx_1.default {
         super(rpc, account);
     }
     async execTransferTx(address, data) {
-        const res = await this.rpc.request({
-            method: 'POST',
-            url: `bank/accounts/${address}/transfers`,
-            data
-        });
+        const res = await this.rpc.post(`/bank/accounts/${address}/transfers`, data);
+        log_1.default.debug('execTransfer result', res);
+        return res;
+    }
+    async execCheckTx(data) {
+        // const res = await this.rpc.request({
+        //   method: 'POST',
+        const res = await this.rpc.post('/bank/accounts/checks', data);
         return res;
     }
 }
@@ -39,5 +43,11 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], Bank.prototype, "execTransferTx", null);
+__decorate([
+    decorator_1.after(sign_1.componentSignData, sendTx),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], Bank.prototype, "execCheckTx", null);
 exports.default = Bank;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQmFuay5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9jb3JlL1R4cy9CYW5rLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsbURBQTRDO0FBQzVDLHlDQUFtRDtBQUluRCw4Q0FBc0I7QUFPdEIsS0FBSyxVQUFVLE1BQU0sQ0FBQyxNQUFZLEVBQUUsTUFBVztJQUM3QyxNQUFNLEdBQUcsR0FBRyxNQUFNLE1BQU0sQ0FBQyxNQUFNLENBQUMsRUFBRSxFQUFFLEVBQUUsTUFBTSxFQUFFLENBQUMsQ0FBQTtJQUMvQyxvQkFBb0I7SUFDcEIsT0FBTyxHQUFHLENBQUE7QUFDWixDQUFDO0FBRUQsTUFBcUIsSUFBSyxTQUFRLFlBQUU7SUFDbEMsWUFBWSxHQUFXLEVBQUUsT0FBZ0I7UUFDdkMsS0FBSyxDQUFDLEdBQUcsRUFBRSxPQUFPLENBQUMsQ0FBQTtJQUNyQixDQUFDO0lBR00sS0FBSyxDQUFDLGNBQWMsQ0FBQyxPQUFlLEVBQUUsSUFBb0I7UUFDL0QsTUFBTSxHQUFHLEdBQUcsTUFBTSxJQUFJLENBQUMsR0FBRyxDQUFDLE9BQU8sQ0FBQztZQUNqQyxNQUFNLEVBQUUsTUFBTTtZQUNkLEdBQUcsRUFBRSxpQkFBaUIsT0FBTyxZQUFZO1lBQ3pDLElBQUk7U0FDTCxDQUFDLENBQUE7UUFDRixPQUFPLEdBQUcsQ0FBQTtJQUNaLENBQUM7Q0FHRjtBQVZDO0lBREMsaUJBQUssQ0FBQyx3QkFBaUIsRUFBRSxNQUFNLENBQUM7Ozs7MENBUWhDO0FBYkgsdUJBZ0JDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQmFuay5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NyYy9jb3JlL1R4cy9CYW5rLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsbURBQTRDO0FBQzVDLHlDQUFtRDtBQUluRCx1REFBa0M7QUFDbEMsOENBQXNCO0FBT3RCLEtBQUssVUFBVSxNQUFNLENBQUMsTUFBWSxFQUFFLE1BQVc7SUFDN0MsTUFBTSxHQUFHLEdBQUcsTUFBTSxNQUFNLENBQUMsTUFBTSxDQUFDLEVBQUUsRUFBRSxFQUFFLE1BQU0sRUFBRSxDQUFDLENBQUE7SUFDL0MsYUFBTSxDQUFDLEtBQUssQ0FBQyxxQkFBcUIsRUFBRSxHQUFHLENBQUMsQ0FBQTtJQUN4QyxPQUFPLEdBQUcsQ0FBQTtBQUNaLENBQUM7QUFFRCxNQUFxQixJQUFLLFNBQVEsWUFBRTtJQUNsQyxZQUFZLEdBQVcsRUFBRSxPQUFnQjtRQUN2QyxLQUFLLENBQUMsR0FBRyxFQUFFLE9BQU8sQ0FBQyxDQUFBO0lBQ3JCLENBQUM7SUFHTSxLQUFLLENBQUMsY0FBYyxDQUFDLE9BQWUsRUFBRSxJQUFvQjtRQUMvRCxNQUFNLEdBQUcsR0FBRyxNQUFNLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUM3QixrQkFBa0IsT0FBTyxZQUFZLEVBQ3JDLElBQUksQ0FDTCxDQUFDO1FBQ0YsYUFBTSxDQUFDLEtBQUssQ0FBQyxxQkFBcUIsRUFBRSxHQUFHLENBQUMsQ0FBQTtRQUN4QyxPQUFPLEdBQUcsQ0FBQTtJQUNaLENBQUM7SUFHTSxLQUFLLENBQUMsV0FBVyxDQUFDLElBQW9CO1FBQzNDLHVDQUF1QztRQUN2QyxvQkFBb0I7UUFDcEIsTUFBTSxHQUFHLEdBQUcsTUFBTSxJQUFJLENBQUMsR0FBRyxDQUFDLElBQUksQ0FDN0IsdUJBQXVCLEVBQ3ZCLElBQUksQ0FDTCxDQUFBO1FBQ0QsT0FBTyxHQUFHLENBQUE7SUFDWixDQUFDO0NBQ0Y7QUFuQkM7SUFEQyxpQkFBSyxDQUFDLHdCQUFpQixFQUFFLE1BQU0sQ0FBQzs7OzswQ0FRaEM7QUFHRDtJQURDLGlCQUFLLENBQUMsd0JBQWlCLEVBQUUsTUFBTSxDQUFDOzs7O3VDQVNoQztBQXhCSCx1QkF5QkMifQ==
