@@ -61,4 +61,28 @@ export default class Delegation extends Tx {
     return res
   }
 
+  public async execQueryDelegationAll(delegatorAddress: string) {
+    const res = await this.rpc.get(
+      `/stake/delegators/${delegatorAddress}/delegations`
+    );
+    logger.debug('QueryDelegationsAll result', res)
+    return res
+  }
+
+  public async execQueryDelegationOne(delegatorAddress: string, validatorAddress: string) {
+    const res = await this.rpc.get(
+      `/stake/delegators/${delegatorAddress}/validators/${validatorAddress}`
+    );
+    logger.debug('QueryDelegationOne result', res)
+    return res
+  }
+
+  public async execQueryValidatorOne(validatorAddress: string){
+    const res = await this.rpc.get(
+      `/stake/validators/${validatorAddress}`
+    )
+    logger.debug('QueryValidatorOne result', res)
+    return res
+  }
+
 }

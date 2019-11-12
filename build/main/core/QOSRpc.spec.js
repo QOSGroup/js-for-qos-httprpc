@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ava_1 = __importDefault(require("ava"));
 // import nacl from 'tweetnacl';
 const QOSRpc_1 = __importDefault(require("./QOSRpc"));
+// import { IApproveInput } from './Txs/Approve';
+// import { ITransferInput } from './Txs/Bank';
+// import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
+// import { IBase } from './types/IBaseInput';
 const utils_1 = require("./utils");
 // import { decodeBase64, encodeBase64 } from './utils';
 const log_1 = __importDefault(require("./utils/log"));
@@ -27,11 +31,11 @@ ava_1.default('qosrpc test', async (t) => {
     // try {
     // const res = await rpc.tx.sendTx()
     // logger.debug(JSON.stringify(res.data))
-    const myBase = {
-        from: account.address,
-        chain_id: 'aquarius-2001',
-        max_gas: '200000',
-    };
+    // const myBase: IBase = {
+    //     from: account.address,
+    //     chain_id: 'aquarius-2001',
+    //     max_gas: '200000',
+    // }
     // const obj: ITransferInput = {
     //   qos: '1111',
     //   base: myBase,
@@ -45,27 +49,40 @@ ava_1.default('qosrpc test', async (t) => {
     // const res01 = await account.sendCreateDelegateTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', del)
     // // logger.debug('Create Delegation result', res01)
     // logger.debug('Create Delegation result:', res01.status, ', hash:', res01.data.hash)
-    const mod = {
-        is_compound: true,
-        base: myBase,
-    };
-    const res02 = await account.sendModifyDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', mod);
-    log_1.default.debug('Modify Delegation result', res02);
-    log_1.default.debug('Modify Delegation result:', res02.status, ', hash:', res02.data.hash);
-    const unbond = {
-        unbond_amount: '1111',
-        base: myBase,
-    };
-    const res03 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond);
-    log_1.default.debug('unbond Delegation result', res03);
-    log_1.default.debug('Unbond Delegation result:', res03.status, ', hash:', res03.data.hash);
-    const unbond1 = {
-        unbond_all: true,
-        base: myBase,
-    };
-    const res04 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond1);
-    log_1.default.debug('Unbond all Delegation result', res04);
-    log_1.default.debug('Unbond all Delegation result:', res04.status, ', hash:', res04.data.hash);
+    // const mod: IModifyDelegationInput= {
+    //   is_compound:  true,
+    //   base: myBase,
+    // }
+    // const res02 = await account.sendModifyDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', mod)
+    // logger.debug('Modify Delegation result', res02)
+    // logger.debug('Modify Delegation result:', res02.status, ', hash:', res02.data.hash)
+    // const unbond: IUnbondDelegationInput= {
+    //   unbond_amount:  '1111',
+    //   base: myBase,
+    // }
+    // const res03 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond)
+    // logger.debug('unbond Delegation result', res03)
+    // logger.debug('Unbond Delegation result:', res03.status, ', hash:', res03.data.hash)
+    // const unbond1: IUnbondDelegationInput= {
+    //   unbond_all:  true,
+    //   base: myBase,
+    // }
+    // const res04 = await account.sendUnbondDelegationTx('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e', unbond1)
+    // logger.debug('Unbond all Delegation result', res04)
+    // logger.debug('Unbond all Delegation result:', res04.status, ', hash:', res04.data.hash)
+    // ------test query------
+    const res05 = await account.queryDelagationAll(account.address);
+    log_1.default.debug('Query all Delegation result data :', res05.data);
+    log_1.default.debug('Query all Delegation result status :', res05.status);
+    const res06 = await account.queryDelagationOne(account.address, 'qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e');
+    log_1.default.debug('Query one Delegation result data :', res06.data);
+    log_1.default.debug('Query one Delegation result status :', res06.status);
+    const res07 = await account.queryValidatorOne('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e');
+    log_1.default.debug('Query one Validator result data :', res07.data);
+    log_1.default.debug('Query one Validator result status :', res07.status);
+    const res08 = await account.queryAccount(account.address);
+    log_1.default.debug('Query account result data :', res08.data);
+    log_1.default.debug('Query account result status :', res08.status);
     // const res01 = await account.sendCheckTx(obj)
     // logger.debug('check result', res01)
     // const approveObj: IApproveInput = {
@@ -84,4 +101,4 @@ ava_1.default('qosrpc test', async (t) => {
     // }
     t.pass();
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUU9TUnBjLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY29yZS9RT1NScGMuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLDhDQUF1QjtBQUN2QixnQ0FBZ0M7QUFDaEMsc0RBQThCO0FBSzlCLG1DQUF1QztBQUN2Qyx3REFBd0Q7QUFDeEQsc0RBQWlDO0FBRWpDLGFBQUksQ0FBQyxhQUFhLEVBQUUsS0FBSyxFQUFDLENBQUMsRUFBQyxFQUFFO0lBQzVCLGFBQU0sQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUE7SUFFakIsTUFBTSxHQUFHLEdBQUcsSUFBSSxnQkFBTSxDQUFDLEVBQUUsT0FBTyxFQUFFLDRCQUE0QixFQUFFLENBQUMsQ0FBQTtJQUVqRSxvQ0FBb0M7SUFDcEMseUJBQXlCO0lBQ3pCLDhJQUE4STtJQUM5SSxNQUFNLE9BQU8sR0FBRyxHQUFHLENBQUMsYUFBYSxDQUFDLCtKQUErSixDQUFDLENBQUE7SUFDbE0sd0NBQXdDO0lBQ3hDLGdDQUFnQztJQUNoQyxhQUFNLENBQUMsS0FBSyxDQUFDLG1CQUFtQixFQUFFLENBQUMsT0FBTyxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtJQUN4RSxhQUFNLENBQUMsS0FBSyxDQUFDLGdDQUFnQyxFQUFFLG9CQUFZLENBQUMsT0FBTyxDQUFDLE9BQU8sQ0FBQyxTQUFTLENBQUMsQ0FBQyxDQUFBO0lBQ3ZGLGFBQU0sQ0FBQyxLQUFLLENBQUMsbUJBQW1CLEVBQUUsQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFBO0lBQ3pFLGFBQU0sQ0FBQyxLQUFLLENBQUMsZ0NBQWdDLEVBQUUsb0JBQVksQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUE7SUFFeEYsYUFBTSxD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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUU9TUnBjLnNwZWMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY29yZS9RT1NScGMuc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLDhDQUF1QjtBQUN2QixnQ0FBZ0M7QUFDaEMsc0RBQThCO0FBQzlCLGlEQUFpRDtBQUNqRCwrQ0FBK0M7QUFDL0MscUZBQXFGO0FBQ3JGLDhDQUE4QztBQUM5QyxtQ0FBdUM7QUFDdkMsd0RBQXdEO0FBQ3hELHNEQUFpQztBQUVqQyxhQUFJLENBQUMsYUFBYSxFQUFFLEtBQUssRUFBQyxDQUFDLEVBQUMsRUFBRTtJQUM1QixhQUFNLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxDQUFBO0lBRWpCLE1BQU0sR0FBRyxHQUFHLElBQUksZ0JBQU0sQ0FBQyxFQUFFLE9BQU8sRUFBRSw0QkFBNEIsRUFBRSxDQUFDLENBQUE7SUFFakUsb0NBQW9DO0lBQ3BDLHlCQUF5QjtJQUN6Qiw4SUFBOEk7SUFDOUksTUFBTSxPQUFPLEdBQUcsR0FBRyxDQUFDLGFBQWEsQ0FBQywrSkFBK0osQ0FBQyxDQUFBO0lBQ2xNLHdDQUF3QztJQUN4QyxnQ0FBZ0M7SUFDaEMsYUFBTSxDQUFDLEtBQUssQ0FBQyxtQkFBbUIsRUFBRSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUE7SUFDeEUsYUFBTSxDQUFDLEtBQUssQ0FBQyxnQ0FBZ0MsRUFBRSxvQkFBWSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLENBQUMsQ0FBQTtJQUN2RixhQUFNLENBQUMsS0FBSyxDQUFDLG1CQUFtQixFQUFFLENBQUMsT0FBTyxDQUFDLE9BQU8sQ0FBQyxVQUFVLENBQUMsQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQTtJQUN6RSxhQUFNLENBQUMsS0FBSyxDQUFDLGdDQUFnQyxFQUFFLG9CQUFZLENBQUMs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

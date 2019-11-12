@@ -14,6 +14,7 @@ export declare class QOSRpc {
         readonly baseUrl: string;
     });
     post(url: string, data: IBaseInput): Promise<import("axios").AxiosResponse<any>>;
+    get(url: string): Promise<import("axios").AxiosResponse<any>>;
     generateMnemonic(): string;
     importAccount(mnemonic: string): Account;
     /**

@@ -29,6 +29,10 @@ export class QOSRpc {
     return this.request.post(url, data);
   }
 
+  public get(url:string){
+    return this.request.get(url);
+  }
+
   public generateMnemonic() {
     return this.key.generateMnemonic();
   }

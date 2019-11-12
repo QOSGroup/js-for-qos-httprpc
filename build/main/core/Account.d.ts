@@ -23,5 +23,9 @@ declare class Account {
     sendIncreaseApproveTx(toAddress: string, data: IApproveInput): Promise<import("axios").AxiosResponse<any>>;
     sendDecreaseApproveTx(toAddress: string, data: IApproveInput): Promise<import("axios").AxiosResponse<any>>;
     sendUseApproveTx(toAddress: string, data: IApproveInput): Promise<import("axios").AxiosResponse<any>>;
+    queryDelagationAll(deleagtorAddress: string): Promise<import("axios").AxiosResponse<any>>;
+    queryDelagationOne(deleagtorAddress: string, validatorAddress: string): Promise<import("axios").AxiosResponse<any>>;
+    queryValidatorOne(validatorAddress: string): Promise<import("axios").AxiosResponse<any>>;
+    queryAccount(accountAddress: any): Promise<import("axios").AxiosResponse<any>>;
 }
 export default Account;

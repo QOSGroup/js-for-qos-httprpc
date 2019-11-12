@@ -11,4 +11,5 @@ export default class Bank extends Tx {
     constructor(rpc: QOSRpc, account: Account);
     execTransferTx(address: string, data: ITransferInput): Promise<import("axios").AxiosResponse<any>>;
     execCheckTx(data: ITransferInput): Promise<import("axios").AxiosResponse<any>>;
+    execQueryAccount(accountAddress: string): Promise<import("axios").AxiosResponse<any>>;
 }

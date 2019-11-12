@@ -90,6 +90,32 @@ class Account {
     const res = await tx.execUseApproveTx(toAddress,data);
     return res;
   }
+
+  public async queryDelagationAll(deleagtorAddress: string) {
+    const tx = new Delegation(this.rpc, this);
+    const res = await tx.execQueryDelegationAll(deleagtorAddress)
+    return res
+  }
+
+  public async queryDelagationOne(deleagtorAddress: string, validatorAddress: string) {
+    const tx = new Delegation(this.rpc, this);
+    const res = await tx.execQueryDelegationOne(deleagtorAddress, validatorAddress)
+    return res
+  }
+
+  public async queryValidatorOne(validatorAddress: string) {
+    const tx = new Delegation(this.rpc, this);
+    const res = await tx.execQueryValidatorOne(validatorAddress)
+    return res
+  }
+
+  public async queryAccount(accountAddress) {
+    const tx = new Bank(this.rpc, this);
+    const res = await tx.execQueryAccount(accountAddress)
+    return res;
+  }
+
+
 }
 
 export default Account;
