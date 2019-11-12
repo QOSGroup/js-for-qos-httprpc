@@ -43,4 +43,12 @@ export default class Bank extends Tx {
     )
     return res
   }
+
+  public async execQueryAccount(accountAddress: string) {
+    const res = await this.rpc.get(
+        `/accounts/${accountAddress}`
+    )
+    logger.debug('execQueryAccount result', res)
+    return res
+  }
 }
