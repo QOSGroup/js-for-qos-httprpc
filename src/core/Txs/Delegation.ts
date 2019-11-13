@@ -3,7 +3,6 @@ import { after } from '../common/decorator';
 import { componentSignData } from '../common/sign';
 import QOSRpc from '../QOSRpc';
 import { IBaseInput } from '../types/IBaseInput';
-import logger from '../utils/log';
 import Tx from './Tx';
 
 export interface ICreateDelegationInput extends IBaseInput {
@@ -22,7 +21,6 @@ export interface IUnbondDelegationInput extends IBaseInput {
 
 async function sendTx(target: Delegation, result: any) {
   const res = await target.sendTx({ tx: result })
-  logger.debug('res in sendTX ', res)
   return res
 }
 
@@ -37,7 +35,6 @@ export default class Delegation extends Tx {
       `/stake/delegators/${validatorAddress}/delegations`,
       data
     );
-    logger.debug('execCreateDelegate result', res)
     return res
   }
 
@@ -47,7 +44,6 @@ export default class Delegation extends Tx {
       `/stake/delegators/${validatorAddress}/modify_delegations`,
       data
     );
-    logger.debug('execModifyDelegation result', res)
     return res
   }
 
@@ -57,7 +53,6 @@ export default class Delegation extends Tx {
       `/stake/delegators/${validatorAddress}/unbond_delegations`,
       data
     );
-    logger.debug('execUnbondDelegation result', res)
     return res
   }
 
@@ -65,7 +60,6 @@ export default class Delegation extends Tx {
     const res = await this.rpc.get(
       `/stake/delegators/${delegatorAddress}/delegations`
     );
-    logger.debug('QueryDelegationsAll result', res)
     return res
   }
 
@@ -73,7 +67,6 @@ export default class Delegation extends Tx {
     const res = await this.rpc.get(
       `/stake/delegators/${delegatorAddress}/validators/${validatorAddress}`
     );
-    logger.debug('QueryDelegationOne result', res)
     return res
   }
 
@@ -81,7 +74,6 @@ export default class Delegation extends Tx {
     const res = await this.rpc.get(
       `/stake/validators/${validatorAddress}`
     )
-    logger.debug('QueryValidatorOne result', res)
     return res
   }
 

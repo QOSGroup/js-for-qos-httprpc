@@ -1,6 +1,6 @@
 import test from 'ava';
 // import nacl from 'tweetnacl';
-import QOSRpc from './QOSRpc';
+// import QOSRpc from './QOSRpc';
 // import { IApproveInput } from './Txs/Approve';
 // import { ITransferInput } from './Txs/Bank';
 // import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
@@ -12,14 +12,14 @@ import QOSRpc from './QOSRpc';
 test('qosrpc test', async t => {
   // logger.debug('1')
 
-  const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
+  // const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
 
   // const Mn = rpc.generateMnemonic()
   // logger.debug('Mn', Mn)
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
-  const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
+  // const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
   // const account = rpc.importAccount(Mn)
-  // logger.debug(account.address)
+  // console.log(account.address)
   // logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
   // logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
   // logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))

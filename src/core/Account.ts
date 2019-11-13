@@ -4,7 +4,6 @@ import Bank, { ITransferInput } from './Txs/Bank';
 import Delegation, { ICreateDelegationInput,  IModifyDelegationInput, IUnbondDelegationInput} from './Txs/Delegation';
 import { IKeyPair } from './types/common';
 import { encodeBase64 } from './utils';
-import logger from './utils/log';
 // import { ITransferInput } from './'
 
 class Account {
@@ -32,8 +31,7 @@ class Account {
 
   public async sendTransferTx(toAddress: string, data: ITransferInput) {
     const tx = new Bank(this.rpc, this);
-     const res = await tx.execTransferTx(toAddress, data);
-    logger.debug('transfer result', res);
+    const res = await tx.execTransferTx(toAddress, data);
     return res;
   }
 

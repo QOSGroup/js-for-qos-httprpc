@@ -13,7 +13,6 @@ export interface IApproveInput extends IBaseInput {
 
 async function sendTx(target: Approve, result: any) {
     const res = await target.sendTx({ tx: result })
-    // logger.debug(res)
     return res
 }
 
