@@ -14,11 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const decorator_1 = require("../common/decorator");
 const sign_1 = require("../common/sign");
-const log_1 = __importDefault(require("../utils/log"));
 const Tx_1 = __importDefault(require("./Tx"));
 async function sendTx(target, result) {
     const res = await target.sendTx({ tx: result });
-    log_1.default.debug('res in sendTX ', res);
     return res;
 }
 class Delegation extends Tx_1.default {
@@ -27,32 +25,26 @@ class Delegation extends Tx_1.default {
     }
     async execCreateDelegationTx(validatorAddress, data) {
         const res = await this.rpc.post(`/stake/delegators/${validatorAddress}/delegations`, data);
-        log_1.default.debug('execCreateDelegate result', res);
         return res;
     }
     async execModifyDelegationTx(validatorAddress, data) {
         const res = await this.rpc.post(`/stake/delegators/${validatorAddress}/modify_delegations`, data);
-        log_1.default.debug('execModifyDelegation result', res);
         return res;
     }
     async execUnbondDelegationTx(validatorAddress, data) {
         const res = await this.rpc.post(`/stake/delegators/${validatorAddress}/unbond_delegations`, data);
-        log_1.default.debug('execUnbondDelegation result', res);
         return res;
     }
     async execQueryDelegationAll(delegatorAddress) {
         const res = await this.rpc.get(`/stake/delegators/${delegatorAddress}/delegations`);
-        log_1.default.debug('QueryDelegationsAll result', res);
         return res;
     }
     async execQueryDelegationOne(delegatorAddress, validatorAddress) {
         const res = await this.rpc.get(`/stake/delegators/${delegatorAddress}/validators/${validatorAddress}`);
-        log_1.default.debug('QueryDelegationOne result', res);
         return res;
     }
     async execQueryValidatorOne(validatorAddress) {
         const res = await this.rpc.get(`/stake/validators/${validatorAddress}`);
-        log_1.default.debug('QueryValidatorOne result', res);
         return res;
     }
 }
