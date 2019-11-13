@@ -1,1 +1,1 @@
-export declare function after(...args: any[]): (_target: any, descriptor: any) => any;
+export declare function after(...args: any[]): (_target: any, _key: any, descriptor: any) => any;
