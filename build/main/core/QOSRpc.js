@@ -12,7 +12,6 @@ class QOSRpc {
     constructor(config) {
         this.config = config;
         this.key = new SecretKey_1.default();
-        this.account = new Account_1.default();
     }
     get request() {
         return request_1.default(this.config.baseUrl);

@@ -7,6 +7,7 @@ const Approve_1 = __importDefault(require("./Txs/Approve"));
 const Bank_1 = __importDefault(require("./Txs/Bank"));
 const Delegation_1 = __importDefault(require("./Txs/Delegation"));
 const utils_1 = require("./utils");
+const log_1 = __importDefault(require("./utils/log"));
 // import { ITransferInput } from './'
 class Account {
     constructor(controller, keyPair, mnemonic) {
@@ -25,6 +26,7 @@ class Account {
     async sendTransferTx(toAddress, data) {
         const tx = new Bank_1.default(this.rpc, this);
         const res = await tx.execTransferTx(toAddress, data);
+        log_1.default.debug('transfer result', res);
         return res;
     }
     async sendCreateDelegateTx(validatorAddress, data) {

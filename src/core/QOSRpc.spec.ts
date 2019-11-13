@@ -5,12 +5,12 @@ import QOSRpc from './QOSRpc';
 // import { ITransferInput } from './Txs/Bank';
 // import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
 // import { IBase } from './types/IBaseInput';
-import { encodeBase64 } from './utils';
+// import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
-import logger from './utils/log';
+// import logger from './utils/log';
 
 test('qosrpc test', async t => {
-  logger.debug('1')
+  // logger.debug('1')
 
   const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
 
@@ -20,13 +20,12 @@ test('qosrpc test', async t => {
   const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
   // const account = rpc.importAccount(Mn)
   // logger.debug(account.address)
-  logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
-  logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
-  logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))
-  logger.debug('keyPair.secretKey encodeBase64', encodeBase64(account.keypair.privateKey))
-
-  logger.debug('keyPair.bech32pubkey', account.keypair.bech32pubkey)
-  logger.debug(account.pubKey)
+  // logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
+  // logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
+  // logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))
+  // logger.debug('keyPair.secretKey encodeBase64', encodeBase64(account.keypair.privateKey))
+  // logger.debug('keyPair.bech32pubkey', account.keypair.bech32pubkey)
+  // logger.debug(account.pubKey)
   // try {
     // const res = await rpc.tx.sendTx()
     // logger.debug(JSON.stringify(res.data))
@@ -77,21 +76,24 @@ test('qosrpc test', async t => {
     // logger.debug('Unbond all Delegation result:', res04.status, ', hash:', res04.data.hash)
 
     // ------test query------
-    const res05 = await account.queryDelagationAll(account.address)
-    logger.debug('Query all Delegation result data :', res05.data)
-    logger.debug('Query all Delegation result status :', res05.status)
+    // const res05 = await account.queryDelagationAll(account.address)
+    // logger.debug('Query all Delegation result data :', res05.data)
+    // logger.debug('Query all Delegation result status :', res05.status)
 
-    const res06 = await account.queryDelagationOne(account.address, 'qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e')
-    logger.debug('Query one Delegation result data :', res06.data)
-    logger.debug('Query one Delegation result status :', res06.status)
+    // const res06 = await account.queryDelagationOne(account.address, 'qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e')
+    // logger.debug('Query one Delegation result data :', res06.data)
+    // logger.debug('Query one Delegation result status :', res06.status)
 
-    const res07 = await account.queryValidatorOne('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e')
-    logger.debug('Query one Validator result data :', res07.data)
-    logger.debug('Query one Validator result status :', res07.status)
+    // const res07 = await account.queryValidatorOne('qosval19hrl38w5lm6sklw2hzrzrjtsxudpy8hyfaea3e')
+    // logger.debug('Query one Validator result data :', res07.data)
+    // logger.debug('Query one Validator result status :', res07.status)
 
-    const res08 = await account.queryAccount(account.address)
-    logger.debug('Query account result data :', res08.data)
-    logger.debug('Query account result status :', res08.status)
+    // const res08 = await account.queryAccount(account.address)
+    // logger.debug('Query account result data :', res08.data)
+    // logger.debug('Query account result status :', res08.status)
+
+
+
     // const res01 = await account.sendCheckTx(obj)
     // logger.debug('check result', res01)
     
