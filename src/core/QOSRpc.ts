@@ -19,11 +19,13 @@ export class QOSRpc {
   }
   public config: { readonly baseUrl: string; };
   public key: SecretKey;
+  public account: Account
   private _tx!: Tx;
 
   constructor(config: { readonly baseUrl: string; }) {
     this.config = config;
     this.key = new SecretKey();
+    this.account = new Account(this);
   }
   public post(url:string, data:IBaseInput){
     return this.request.post(url, data);
