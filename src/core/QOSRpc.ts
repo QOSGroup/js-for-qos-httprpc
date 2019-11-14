@@ -19,7 +19,7 @@ export class QOSRpc {
   }
   public config: { readonly baseUrl: string; };
   public key: SecretKey;
-  public account: Account
+  public account: Account;
   private _tx!: Tx;
 
   constructor(config: { readonly baseUrl: string; }) {
