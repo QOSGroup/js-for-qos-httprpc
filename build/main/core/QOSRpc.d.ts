@@ -9,6 +9,7 @@ export declare class QOSRpc {
         readonly baseUrl: string;
     };
     key: SecretKey;
+    account: Account;
     private _tx;
     constructor(config: {
         readonly baseUrl: string;
