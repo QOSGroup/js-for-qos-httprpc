@@ -20,5 +20,6 @@ export default class Delegation extends Tx {
     execUnbondDelegationTx(validatorAddress: string, data: IUnbondDelegationInput): Promise<import("axios").AxiosResponse<any>>;
     execQueryDelegationAll(delegatorAddress: string): Promise<import("axios").AxiosResponse<any>>;
     execQueryDelegationOne(delegatorAddress: string, validatorAddress: string): Promise<import("axios").AxiosResponse<any>>;
+    execQueryValidatorAll(): Promise<import("axios").AxiosResponse<any>>;
     execQueryValidatorOne(validatorAddress: string): Promise<import("axios").AxiosResponse<any>>;
 }

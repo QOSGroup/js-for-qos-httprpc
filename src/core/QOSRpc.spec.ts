@@ -1,10 +1,10 @@
 import test from 'ava';
 // import nacl from 'tweetnacl';
-import QOSRpc from './QOSRpc';
+// import QOSRpc from './QOSRpc';
 // import { IApproveInput } from './Txs/Approve';
-import { ITransferInput } from './Txs/Bank';
+// import { ITransferInput } from './Txs/Bank';
 // import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
-import { IBase } from './types/IBaseInput';
+// import { IBase } from './types/IBaseInput';
 // import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
 // import logger from './utils/log';
@@ -12,12 +12,12 @@ import { IBase } from './types/IBaseInput';
 test('qosrpc test', async t => {
   // logger.debug('1')
 
-  const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
+  // const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
 
   // const Mn = rpc.generateMnemonic()
   // logger.debug('Mn', Mn)
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
-  const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
+  // const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
   // const account = rpc.importAccount(Mn)
 
   // console.log(account.address)
@@ -31,17 +31,17 @@ test('qosrpc test', async t => {
   // const res = await rpc.tx.sendTx()
   // logger.debug(JSON.stringify(res.data))
 
-  const myBase: IBase = {
-      from: account.address,
-      chain_id: 'aquarius-2001',
-      max_gas: '200000',
-  }
+  // const myBase: IBase = {
+  //     from: account.address,
+  //     chain_id: 'aquarius-2001',
+  //     max_gas: '200000',
+  // }
 
-  const obj: ITransferInput = {
-    qos: '1111',
-    base: myBase,
-  }
-  await account.sendTransferTx('qosacc18j9ncemyh0jex3k2yu3s6zh53azfsgxav7t3wq', obj)
+  // const obj: ITransferInput = {
+  //   qos: '1111',
+  //   base: myBase,
+  // }
+  // await account.sendTransferTx('qosacc18j9ncemyh0jex3k2yu3s6zh53azfsgxav7t3wq', obj)
   // logger.debug('Transfer result', res00)
 
   // const del: ICreateDelegationInput= {

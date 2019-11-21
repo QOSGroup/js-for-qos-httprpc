@@ -70,11 +70,20 @@ export default class Delegation extends Tx {
     return res
   }
 
+  public async execQueryValidatorAll(){
+    const res = await this.rpc.get(
+      '/stake/validators'
+    )
+    return res
+  }
+
   public async execQueryValidatorOne(validatorAddress: string){
     const res = await this.rpc.get(
       `/stake/validators/${validatorAddress}`
     )
     return res
   }
+
+
 
 }

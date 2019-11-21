@@ -101,6 +101,12 @@ class Account {
     return res
   }
 
+  public async queryValidatorAll() {
+    const tx = new Delegation(this.rpc, this);
+    const res = await tx.execQueryValidatorAll()
+    return res
+  }
+
   public async queryValidatorOne(validatorAddress: string) {
     const tx = new Delegation(this.rpc, this);
     const res = await tx.execQueryValidatorOne(validatorAddress)
