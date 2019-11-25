@@ -21,6 +21,7 @@ export declare class QOSRpc {
      * 根据私钥恢复账户
      * @param {string} privateKey 私钥
      */
-    recoveryAccountByPrivateKey(privateKey: any): Account;
+    recoveryAccountByPrivateKey(privateKey: string): Account;
+    verifyBech32StringByAccAddress(accAddress: string): any;
 }
 export default QOSRpc;

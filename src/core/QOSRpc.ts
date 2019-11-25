@@ -2,7 +2,6 @@ import Account from './Account';
 import SecretKey from './SecretKey';
 import Tx from './Tx';
 import { IBaseInput } from './types/IBaseInput';
-import { decodeBase64 } from './utils';
 import createAxioRequest from './utils/request';
 
 export class QOSRpc {
@@ -47,11 +46,15 @@ export class QOSRpc {
    * 根据私钥恢复账户
    * @param {string} privateKey 私钥
    */
-  public recoveryAccountByPrivateKey(privateKey) {
-    const privateKeyBuffer = decodeBase64(privateKey);
-    // const keyPair = nacl.sign.keyPair.fromSecretKey(privateKeyBuffer);
-    const keyPair = this.key.recoveryKeyPair(privateKeyBuffer)
+  public recoveryAccountByPrivateKey(privateKey: string) {
+    const keyPair = this.key.recoveryKeyPair(privateKey)
     return new Account(this, keyPair);
+  }
+
+  // 账户地址格式校验
+  public verifyBech32StringByAccAddress(accAddress: string) {
+    const isValidate = this.key.verifyBech32String(accAddress)
+    return isValidate;
   }
 
 }
