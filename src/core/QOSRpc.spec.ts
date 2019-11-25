@@ -20,7 +20,7 @@ test('qosrpc test', async t => {
   // const account = rpc.importAccount('violin discover song model crawl distance method guess twenty silly chaos skirt convince hero oxygen cabin palm tomato wing dolphin chief clock cradle tackle')
   // const account = rpc.importAccount(Mn)
 
-  // console.log(account.address)
+  // console.log(account)
   // logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
   // logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
   // logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))

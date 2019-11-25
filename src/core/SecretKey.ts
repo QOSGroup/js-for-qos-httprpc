@@ -12,7 +12,6 @@ export default class SecretKey {
   public genarateKeyPair(mnemonic: string) {
     // 根据助记词得到账户信息
     const [prikey, pubkey, accaddr, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
-
     if (err != null) {
       console.log(err)
     }
