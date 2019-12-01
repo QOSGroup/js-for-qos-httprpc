@@ -29,7 +29,7 @@ test('qosrpc test', async (t) => {
         max_gas: '200000',
     };
     const obj = {
-        qos: '1111',
+        qos: '1000',
         base: myBase,
     };
     await account.sendTransferTx('qosacc1edth0vln3dch80c08adt0pas4vqxnr2u3yf04n', obj);

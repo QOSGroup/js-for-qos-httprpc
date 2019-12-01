@@ -2,7 +2,7 @@ import QOSRpc from './QOSRpc';
 import Approve, { IApproveInput } from './Txs/Approve';
 import Bank, { ITransferInput } from './Txs/Bank';
 import Delegation, { ICreateDelegationInput,  IModifyDelegationInput, IUnbondDelegationInput} from './Txs/Delegation';
-import { IKeyPair } from './types/common';
+import { IAcc, IKeyPair } from './types/common';
 // import { ITransferInput } from './'
 
 class Account {
@@ -12,21 +12,21 @@ class Account {
   public mnemonic: string;
   public keypair: IKeyPair;
   public address: string;
-  public pubKey: string;
+  // public pubKey: Uint8Array;
   public privateKey: string;
-  public privateKeyBz: string;
-  public pubKeyBz: string;
+  public privateKeyBz: Uint8Array;
+  public pubKeyBz: Uint8Array;
 
-  constructor(controller: QOSRpc, keyPair?: IKeyPair, mnemonic?: string) {
+  constructor(controller: QOSRpc, Acc?: IAcc, mnemonic?: string) {
     this.rpc = controller;
-    if (keyPair) {
+    if (Acc) {
       this.mnemonic = mnemonic;
-      this.keypair = keyPair;
-      this.privateKey = keyPair.privateKey;
-      this.pubKey = keyPair.pubKey;
-      this.address = keyPair.accAddress;
-      this.privateKeyBz = keyPair.privateKeyBz;
-      this.pubKeyBz = keyPair.pubKeyBz;
+      this.keypair = Acc.keyPair;
+      this.privateKey = Acc.keyPair.hexPrivateKey;
+      // this.pubKey = Acc.keyPair.pubKey;
+      this.address = Acc.address;
+      this.privateKeyBz = Acc.keyPair.privateKey;
+      this.pubKeyBz = Acc.keyPair.pubKey;
     }
   }
 

@@ -1,5 +1,6 @@
 
 import { generateMnemonic } from 'bip39';
+import { IAcc } from './types/common';
 require('qosKeys');
 
 export default class SecretKey {
@@ -9,35 +10,41 @@ export default class SecretKey {
     return mnemonic;
   }
 
-  public genarateKeyPair(mnemonic: string) {
+  public genarateKeyPair(mnemonic: string): IAcc {
     // 根据助记词得到账户信息
-    const [prikey, pubkey, accaddr, priKeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
+    // @ts-ignore
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
     if (err != null) {
       console.log(err)
     }
     return {
-      privateKey: prikey,
-      pubKey: pubkey,
-      accAddress: accaddr,
-      privateKeyBz: (global as any).qosKeys.EncodeBase64(priKeyBz),
-      pubKeyBz: (global as any).qosKeys.EncodeBase64(pubkeyBz)
+      address: accaddr,
+      keyPair: {
+        hexPrivateKey: hexprikey,
+        privateKey: prikeyBz,
+        pubKey: pubkeyBz
+
+      }
     }
   }
 
-  public recoveryKeyPair(privateKey: string) {
+  public recoveryKeyPair(privateKey: string): IAcc {
     // 根据私钥得到账户信息
-    const [prikey, pubkey, accaddr, priKeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
+    // @ts-ignore
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
     if (err != null) {
       console.log(err)
     }
     return {
-      privateKey: prikey,
-      pubKey: pubkey,
-      accAddress: accaddr,
-      privateKeyBz: (global as any).qosKeys.EncodeBase64(priKeyBz),
-      pubKeyBz: (global as any).qosKeys.EncodeBase64(pubkeyBz)
+      address: accaddr,
+      keyPair: {
+        hexPrivateKey: hexprikey,
+        privateKey: prikeyBz,
+        pubKey: pubkeyBz
+      }
     }
   }
+
 
   public verifyBech32String(accAddress: string) {
     const isValidate = (global as any).qosKeys.verifyBech32String(accAddress)
