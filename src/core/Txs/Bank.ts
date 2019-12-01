@@ -47,4 +47,5 @@ export default class Bank extends Tx {
     )
     return res
   }
+
 }

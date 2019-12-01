@@ -14,7 +14,8 @@ class Account {
   public address: string;
   public pubKey: string;
   public privateKey: string;
-  public bech32pubkey: string;
+  public privateKeyBz: string;
+  public pubKeyBz: string;
 
   constructor(controller: QOSRpc, keyPair?: IKeyPair, mnemonic?: string) {
     this.rpc = controller;
@@ -24,7 +25,8 @@ class Account {
       this.privateKey = keyPair.privateKey;
       this.pubKey = keyPair.pubKey;
       this.address = keyPair.accAddress;
-      // this.bech32pubkey = keyPair.bech32pubkey;
+      this.privateKeyBz = keyPair.privateKeyBz;
+      this.pubKeyBz = keyPair.pubKeyBz;
     }
   }
 

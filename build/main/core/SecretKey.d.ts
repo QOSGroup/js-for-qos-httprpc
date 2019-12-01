@@ -4,11 +4,15 @@ export default class SecretKey {
         privateKey: any;
         pubKey: any;
         accAddress: any;
+        privateKeyBz: any;
+        pubKeyBz: any;
     };
     recoveryKeyPair(privateKey: string): {
         privateKey: any;
         pubKey: any;
         accAddress: any;
+        privateKeyBz: any;
+        pubKeyBz: any;
     };
     verifyBech32String(accAddress: string): any;
     getBech32PubKey(publicKey: any): any;

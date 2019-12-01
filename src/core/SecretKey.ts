@@ -11,27 +11,31 @@ export default class SecretKey {
 
   public genarateKeyPair(mnemonic: string) {
     // 根据助记词得到账户信息
-    const [prikey, pubkey, accaddr, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
+    const [prikey, pubkey, accaddr, priKeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
     if (err != null) {
       console.log(err)
     }
     return {
       privateKey: prikey,
       pubKey: pubkey,
-      accAddress: accaddr
+      accAddress: accaddr,
+      privateKeyBz: (global as any).qosKeys.EncodeBase64(priKeyBz),
+      pubKeyBz: (global as any).qosKeys.EncodeBase64(pubkeyBz)
     }
   }
 
   public recoveryKeyPair(privateKey: string) {
     // 根据私钥得到账户信息
-    const [prikey, pubkey, accaddr, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
+    const [prikey, pubkey, accaddr, priKeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
     if (err != null) {
       console.log(err)
     }
     return {
       privateKey: prikey,
       pubKey: pubkey,
-      accAddress: accaddr
+      accAddress: accaddr,
+      privateKeyBz: (global as any).qosKeys.EncodeBase64(priKeyBz),
+      pubKeyBz: (global as any).qosKeys.EncodeBase64(pubkeyBz)
     }
   }
 

@@ -11,7 +11,8 @@ declare class Account {
     address: string;
     pubKey: string;
     privateKey: string;
-    bech32pubkey: string;
+    privateKeyBz: string;
+    pubKeyBz: string;
     constructor(controller: QOSRpc, keyPair?: IKeyPair, mnemonic?: string);
     sendTransferTx(toAddress: string, data: ITransferInput): Promise<import("axios").AxiosResponse<any>>;
     sendCreateDelegateTx(validatorAddress: string, data: ICreateDelegationInput): Promise<import("axios").AxiosResponse<any>>;
