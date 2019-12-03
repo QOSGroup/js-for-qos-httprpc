@@ -39,7 +39,7 @@ export default class SecretKey {
         };
     }
     verifyBech32String(accAddress) {
-        const isValidate = global.qosKeys.verifyBech32String(accAddress);
+        const isValidate = global.qosKeys.VerifyBech32String(accAddress);
         return isValidate;
     }
     getBech32PubKey(publicKey) {

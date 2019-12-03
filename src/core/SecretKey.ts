@@ -47,7 +47,7 @@ export default class SecretKey {
 
 
   public verifyBech32String(accAddress: string) {
-    const isValidate = (global as any).qosKeys.verifyBech32String(accAddress)
+    const isValidate = (global as any).qosKeys.VerifyBech32String(accAddress)
     return isValidate
   }
 
