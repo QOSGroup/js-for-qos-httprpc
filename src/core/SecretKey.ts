@@ -15,7 +15,7 @@ export default class SecretKey {
     // @ts-ignore
     const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
     if (err != null) {
-      console.log('err==', err)
+      throw err;
     }
     return {
       address: accaddr,
@@ -33,7 +33,7 @@ export default class SecretKey {
     // @ts-ignore
     const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
     if (err != null) {
-      console.log('err==', err)
+      throw err;
     }
     return {
       address: accaddr,

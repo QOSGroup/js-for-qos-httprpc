@@ -1,6 +1,6 @@
 import test from 'ava';
 // import nacl from 'tweetnacl';
-import QOSRpc from './QOSRpc';
+// import QOSRpc from './QOSRpc';
 // import { IApproveInput } from './Txs/Approve';
 // import { ITransferInput } from './Txs/Bank';
 // import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
@@ -8,18 +8,27 @@ import QOSRpc from './QOSRpc';
 // import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
 // import logger from './utils/log';
+require('qosKeys');
 
 test('qosrpc test', async t => {
   // logger.debug('1')
 
   // const rpc = new QOSRpc({ baseUrl: 'http://47.100.168.251:9876' })
-  const rpc = new QOSRpc({ baseUrl: 'http://47.98.253.9:9876' })
+  // const rpc = new QOSRpc({ baseUrl: 'http://47.98.253.9:9876' })
   // const Mn = rpc.generateMnemonic()
   // logger.debug('Mn', Mn)
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
-  const account = rpc.importAccount('giant tackle detail dignity catalog broccoli lady harbor dad mosquito right answer')
+  // const account = rpc.importAccount('giant tackle detail dignity catalog broccoli lady harbor dad mosquito right answer')
   // const account = rpc.importAccount(Mn)
-  console.log(account)
+  // console.log(account)
+
+  // const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey('giant tackle detail dignity catalog broccoli lady harbor dad mosquito right answer');
+  // console.log('----', hexprikey)
+  // console.log('----', pubkey)
+  // console.log('----', accaddr)
+  // console.log('----', prikeyBz)
+  // console.log('----', pubkeyBz)
+  // console.log(err)
   // logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
   // logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
   // logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))
