@@ -2,9 +2,9 @@ import test from 'ava';
 // import nacl from 'tweetnacl';
 import QOSRpc from './QOSRpc';
 // import { IApproveInput } from './Txs/Approve';
-import { ITransferInput } from './Txs/Bank';
+// import { ITransferInput } from './Txs/Bank';
 // import { IModifyDelegationInput, IUnbondDelegationInput } from './Txs/Delegation';
-import { IBase } from './types/IBaseInput';
+// import { IBase } from './types/IBaseInput';
 // import { encodeBase64 } from './utils';
 // import { decodeBase64, encodeBase64 } from './utils';
 // import logger from './utils/log';
@@ -19,7 +19,7 @@ test('qosrpc test', async t => {
   // const account = rpc.recoveryAccountByPrivateKey('0mvLfssOE8FN4m2xuzlw1wfC8AKEigZyHyQwQLag9RDSs8G8VniIEnJSmlZWNGDZsR6jBq5c/NY5xcWlUr0J3w==')
   const account = rpc.importAccount('giant tackle detail dignity catalog broccoli lady harbor dad mosquito right answer')
   // const account = rpc.importAccount(Mn)
-  // console.log(account)
+  console.log(account)
   // logger.debug('keyPair.publicKey', (account.keypair.publicKey).join(','))
   // logger.debug('keyPair.publicKey encodeBase64', encodeBase64(account.keypair.publicKey))
   // logger.debug('keyPair.secretKey', (account.keypair.privateKey).join(','))
@@ -30,17 +30,17 @@ test('qosrpc test', async t => {
   // const res = await rpc.tx.sendTx()
   // logger.debug(JSON.stringify(res.data))
 
-  const myBase: IBase = {
-      from: account.address,
-      chain_id: 'qos-test',
-      max_gas: '200000',
-  }
+  // const myBase: IBase = {
+  //     from: account.address,
+  //     chain_id: 'qos-test',
+  //     max_gas: '200000',
+  // }
 
-  const obj: ITransferInput = {
-    qos: '1000',
-    base: myBase,
-  }
-  await account.sendTransferTx('qosacc1edth0vln3dch80c08adt0pas4vqxnr2u3yf04n', obj)
+  // const obj: ITransferInput = {
+  //   qos: '1000',
+  //   base: myBase,
+  // }
+  // await account.sendTransferTx('qosacc1edth0vln3dch80c08adt0pas4vqxnr2u3yf04n', obj)
   // logger.debug('Transfer result', res00)
 
   // const del: ICreateDelegationInput= {
