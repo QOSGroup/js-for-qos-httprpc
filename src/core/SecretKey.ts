@@ -14,8 +14,10 @@ export default class SecretKey {
     // 根据助记词得到账户信息
     // @ts-ignore
     const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
+    console.log(err)
+    console.log(err != null)
     if (err != null) {
-      throw err;
+      console.log('err==', err)
     }
     return {
       address: accaddr,
@@ -32,8 +34,10 @@ export default class SecretKey {
     // 根据私钥得到账户信息
     // @ts-ignore
     const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
+    console.log(err)
+    console.log(err != null)
     if (err != null) {
-      throw err;
+      console.log('err==', err)
     }
     return {
       address: accaddr,
