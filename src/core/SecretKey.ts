@@ -13,9 +13,9 @@ export default class SecretKey {
   public genarateKeyPair(mnemonic: string): IAcc {
     // 根据助记词得到账户信息
     // @ts-ignore
-    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err11] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
-    if (err11 != null) {
-      console.log('err==', err11)
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
+    if (err != null) {
+      // console.log('err==', err)
     }
     return {
       address: accaddr,
@@ -31,9 +31,9 @@ export default class SecretKey {
   public recoveryKeyPair(privateKey: string): IAcc {
     // 根据私钥得到账户信息
     // @ts-ignore
-    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err11] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
-    if (err11 != null) {
-      console.log('err==', err11)
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
+    if (err != null) {
+      // console.log('err==', err)
     }
     return {
       address: accaddr,
