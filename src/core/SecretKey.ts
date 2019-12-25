@@ -1,7 +1,7 @@
 
 import { generateMnemonic } from 'bip39';
+import { IAcc } from './types/common';
 require('qosKeys');
-import { buf2hex, stringToBuffer } from './utils';
 
 export default class SecretKey {
   public generateMnemonic() {
@@ -10,25 +10,45 @@ export default class SecretKey {
     return mnemonic;
   }
 
-  public genarateKeyPair(mnemonic: string) {
-    // const seed = mnemonicToSeedSync(mnemonic);
-    // 从助记词中获取私钥种子
-    const [prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
-    // const [privateSeed, err] = (global as any).hdpath.DerivePrivateKeyForPath(secret, chaincode, "44'/389'/0'/0/0")
-
-    if (err != null) {
-      // tslint:disable-next-line: no-console
-      console.log(err)
-    }
-    // const secret256 = getHash256(privateSeed);
-    // const keyPair = ed25519.createKeyPair(new Buffer(secret256));
-    // keyPair.bech32pubkey = this.getBech32PubKey(keyPair.publicKey)
+  public genarateKeyPair(mnemonic: string): IAcc {
+    // 根据助记词得到账户信息
+    // @ts-ignore
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.DeriveQOSKey(mnemonic);
     return {
-      publicKey: pubkeyBz,
-      privateKey: prikeyBz,
-      bech32pubkey: this.getBech32PubKey(pubkeyBz)
+      address: accaddr,
+      keyPair: {
+        hexPrivateKey: hexprikey,
+        privateKey: prikeyBz,
+        pubKey: pubkeyBz
+
+      }
     }
   }
+
+  public recoveryKeyPair(privateKey: string): IAcc {
+    // 根据私钥得到账户信息
+    // @ts-ignore
+    const [hexprikey, pubkey, accaddr, prikeyBz, pubkeyBz, err] = (global as any).qosKeys.RecoverFromPrivateKey(privateKey);
+    return {
+      address: accaddr,
+      keyPair: {
+        hexPrivateKey: hexprikey,
+        privateKey: prikeyBz,
+        pubKey: pubkeyBz
+      }
+    }
+  }
+
+
+  public verifyBech32String(accAddress: string) {
+    const isValidate = (global as any).qosKeys.VerifyBech32String(accAddress)
+    return isValidate
+  }
+
+
+
+
+
 
   public getBech32PubKey(publicKey) {
     const [bech32pubkey, err2] = (global as any).qosKeys.Bech32ifyQOSAccPubKey(publicKey);
@@ -37,16 +57,6 @@ export default class SecretKey {
     }
     return bech32pubkey
   }
-
-  public recoveryKeyPair(privateKey: Uint8Array) {
-    const publicKey = stringToBuffer(buf2hex(privateKey).substring(64, 128), 'hex')
-    return {
-      publicKey,
-      privateKey,
-      bech32pubkey: this.getBech32PubKey(publicKey)
-    }
-  }
-
   public test() {
 
     // return keyPair

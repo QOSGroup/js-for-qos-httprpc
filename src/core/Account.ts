@@ -2,9 +2,7 @@ import QOSRpc from './QOSRpc';
 import Approve, { IApproveInput } from './Txs/Approve';
 import Bank, { ITransferInput } from './Txs/Bank';
 import Delegation, { ICreateDelegationInput,  IModifyDelegationInput, IUnbondDelegationInput} from './Txs/Delegation';
-import { IKeyPair } from './types/common';
-import { encodeBase64 } from './utils';
-import logger from './utils/log';
+import { IAcc, IKeyPair } from './types/common';
 // import { ITransferInput } from './'
 
 class Account {
@@ -14,26 +12,27 @@ class Account {
   public mnemonic: string;
   public keypair: IKeyPair;
   public address: string;
-  public pubKey: string;
+  // public pubKey: Uint8Array;
   public privateKey: string;
-  public bech32pubkey: string;
+  public privateKeyBz: Uint8Array;
+  public pubKeyBz: Uint8Array;
 
-  constructor(controller: QOSRpc, keyPair?: IKeyPair, mnemonic?: string) {
+  constructor(controller: QOSRpc, Acc?: IAcc, mnemonic?: string) {
     this.rpc = controller;
-    if (keyPair) {
+    if (Acc) {
       this.mnemonic = mnemonic;
-      this.keypair = keyPair;
-      this.address = this.rpc.key.getAddress(keyPair.publicKey);
-      this.pubKey = encodeBase64(keyPair.publicKey);
-      this.privateKey = encodeBase64(keyPair.privateKey);
-      this.bech32pubkey = keyPair.bech32pubkey;
+      this.keypair = Acc.keyPair;
+      this.privateKey = Acc.keyPair.hexPrivateKey;
+      // this.pubKey = Acc.keyPair.pubKey;
+      this.address = Acc.address;
+      this.privateKeyBz = Acc.keyPair.privateKey;
+      this.pubKeyBz = Acc.keyPair.pubKey;
     }
   }
 
   public async sendTransferTx(toAddress: string, data: ITransferInput) {
     const tx = new Bank(this.rpc, this);
-     const res = await tx.execTransferTx(toAddress, data);
-    logger.debug('transfer result', res);
+    const res = await tx.execTransferTx(toAddress, data);
     return res;
   }
 
@@ -100,6 +99,12 @@ class Account {
   public async queryDelagationOne(deleagtorAddress: string, validatorAddress: string) {
     const tx = new Delegation(this.rpc, this);
     const res = await tx.execQueryDelegationOne(deleagtorAddress, validatorAddress)
+    return res
+  }
+
+  public async queryValidatorAll() {
+    const tx = new Delegation(this.rpc, this);
+    const res = await tx.execQueryValidatorAll()
     return res
   }
 

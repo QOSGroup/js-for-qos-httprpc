@@ -1,7 +1,15 @@
 export interface IKeyPair {
-  publicKey: Uint8Array;
   privateKey: Uint8Array;
-  bech32pubkey: string;
+  pubKey: Uint8Array;
+  hexPrivateKey: string;
+  // accAddress: string;
+  // privateKeyBz: string;
+  // pubKeyBz: string;
+}
+
+export interface IAcc {
+  address: string,
+  keyPair: IKeyPair
 }
 
 export interface IQSC {

@@ -3550,7 +3550,7 @@ q@^1.5.1:
 
 "qosKeys@https://github.com/QOSGroup/js-keys":
   version "1.0.2"
-  resolved "https://github.com/QOSGroup/js-keys#72437102b07cbdf662c8ab1cf12472c508451522"
+  resolved "https://github.com/QOSGroup/js-keys#391cdf9471c26349eb15bb7cd375836cd58b253c"
 
 query-string@^4.1.0:
   version "4.3.4"
